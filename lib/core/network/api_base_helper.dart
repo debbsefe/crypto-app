@@ -4,39 +4,20 @@ import 'package:crypto_app/core/error/exceptions.dart';
 import 'package:dio/dio.dart';
 
 class ApiBaseHelper {
-  ApiBaseHelper(Dio dio) : _dio = dio;
+  ApiBaseHelper(this.dio);
 
-  final Dio _dio;
-
-  var options = BaseOptions(
-    baseUrl: ' Constants.baseUrl',
-    connectTimeout: 60000,
-    receiveTimeout: 60000,
-    validateStatus: (status) {
-      return status! < 500;
-    },
-  );
-
+  final Dio dio;
   Future<Response> post(
-      {required String path,
-      required Map<String, dynamic> body,
-      bool auth = true}) async {
-    _dio.options = options;
-
-    if (auth) {
-      _dio.interceptors.add(AuthHeaderInterceptor());
-    }
-
+      {required String path, Map<String, dynamic>? body}) async {
     try {
       Response response;
 
-      response = await _dio.post(path, data: body);
+      response = await dio.post(path, data: body);
 
       print(response.statusCode);
+      print(response.data);
 
-      if (response.statusCode == 403 || response.statusCode == 401) {
-        throw UnauthorizedException();
-      } else if (response.statusCode == 500) {
+      if (response.statusCode == 500) {
         throw ServerException();
       } else if (response.statusCode == 400) {
         throw BadRequestException();
@@ -53,18 +34,7 @@ class ApiBaseHelper {
   }
 }
 
-class AuthHeaderInterceptor extends InterceptorsWrapper {
-  @override
-  Future<void> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
-    String? token;
-    if (token != null) {
-      options.headers['Authorization'] = 'Bearer $token';
-    }
-
-    handler.next(options);
-  }
-
+class CustomInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     // handler.next(err);
