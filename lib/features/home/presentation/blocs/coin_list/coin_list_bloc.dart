@@ -12,8 +12,8 @@ part 'coin_list_bloc.freezed.dart';
 
 @LazySingleton()
 class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
-  CoinListBloc(this.usecase) : super(const _Initial());
-  final FetchCoinList usecase;
+  CoinListBloc(this.fetchCoinList) : super(const _Initial());
+  final FetchCoinList fetchCoinList;
 
   @override
   Stream<CoinListState> mapEventToState(
@@ -25,11 +25,12 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
 
       /// call usecase
       final _failureOrSuccess =
-          await usecase(Params(currency: event.currency, ids: event.ids));
+          await fetchCoinList(Params(currency: event.currency, ids: event.ids));
 
       ///yield either failure or success depending on response
       yield _failureOrSuccess.fold(
-        (failure) => _Error(failure.message ?? 'unhandled'),
+        (failure) =>
+            _Error(failure.message ?? 'Something went wrong, please try again'),
         (success) => _Loaded(success),
       );
     }
