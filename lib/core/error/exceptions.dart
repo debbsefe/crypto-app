@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
 
 class NetworkException extends DioError {
-  NetworkException() : super(requestOptions: RequestOptions(path: ''));
-}
-
-class CacheException extends DioError {
-  CacheException() : super(requestOptions: RequestOptions(path: ''));
+  final String message;
+  NetworkException({this.message = 'No internet connection detected'})
+      : super(requestOptions: RequestOptions(path: ''));
 }
 
 class ServerException extends DioError {
@@ -16,9 +14,13 @@ class ServerException extends DioError {
 }
 
 class BadRequestException extends DioError {
-  BadRequestException() : super(requestOptions: RequestOptions(path: ''));
+  final String message;
+  BadRequestException({required this.message})
+      : super(requestOptions: RequestOptions(path: ''));
 }
 
-class UnauthorizedException extends DioError {
-  UnauthorizedException() : super(requestOptions: RequestOptions(path: ''));
+class TimeOutException extends DioError {
+  final String message;
+  TimeOutException({this.message = 'Connection timeout'})
+      : super(requestOptions: RequestOptions(path: ''));
 }
