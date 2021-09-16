@@ -2,6 +2,7 @@ import 'package:crypto_app/features/home/presentation/blocs/coin_list/coin_list_
 import 'package:crypto_app/features/home/presentation/screens/convert_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:crypto_app/core/utils/extensions.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -32,22 +33,12 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: 0,
-            title: RichText(
-              text: TextSpan(
-                  text: 'Crypto ',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                  children: [
-                    TextSpan(
-                        text: 'App',
-                        style: TextStyle(
-                          color: Colors.orange[500],
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14,
-                        )),
-                  ]),
+            title: const Text(
+              'Crypto App',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
             centerTitle: true,
           ),
@@ -107,7 +98,8 @@ class _HomeState extends State<Home> {
                         return state.when(
                             initial: () => Container(),
                             error: (e) => Text(e),
-                            loading: () => CircularProgressIndicator(),
+                            loading: () => const Center(
+                                child: CircularProgressIndicator()),
                             loaded: (load) {
                               return Column(
                                   children: load.map((e) {
@@ -123,7 +115,7 @@ class _HomeState extends State<Home> {
                                                     title: e.coin,
                                                     coin: e.usd)));
                                   },
-                                  title: e.coin,
+                                  title: e.coin?.capitalize,
                                 );
                               }).toList());
                             });
@@ -190,8 +182,6 @@ class DashboardTile extends StatelessWidget {
 }
 
 String handleImageAsset(String? name) {
-  //  ids: ',,ethereum,cardano,,solana',
-
   switch (name) {
     case 'bitcoin':
       return 'assets/images/btc.png';
@@ -201,6 +191,18 @@ String handleImageAsset(String? name) {
       return 'assets/images/xrp.png';
     case 'binancecoin':
       return 'assets/images/bnb.png';
+    case 'ethereum':
+      return 'assets/images/ethereum.png';
+    case 'cardano':
+      return 'assets/images/cardano.png';
+    case 'solana':
+      return 'assets/images/solana.png';
+    case 'tether':
+      return 'assets/images/tether.png';
+    case 'chainlink':
+      return 'assets/images/chainlink.png';
+    case 'matic-network':
+      return 'assets/images/matic.png';
     default:
       return 'assets/images/btc.png';
   }

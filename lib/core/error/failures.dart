@@ -13,8 +13,7 @@ abstract class Failure extends Equatable {
 
 // General failures
 class ServerFailure extends Failure {
-  const ServerFailure({this.message = 'Something went wrong please try again'})
-      : super(message: message);
+  const ServerFailure({this.message}) : super(message: message);
   final String? message;
 }
 

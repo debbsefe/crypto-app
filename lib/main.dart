@@ -21,10 +21,11 @@ class MyApp extends StatelessWidget {
       create: (context) => sl<CoinListBloc>(),
       child: MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Home(),
+        home: const Home(),
       ),
     );
   }
