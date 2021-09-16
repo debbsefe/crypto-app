@@ -8,6 +8,9 @@ class CustomInterceptor extends InterceptorsWrapper {
         err.type == DioErrorType.receiveTimeout) {
       throw TimeOutException();
     }
+    if (err.response == null) {
+      throw NetworkException();
+    }
 
     if (err.response?.statusCode == 500) {
       throw ServerException(message: err.message);
