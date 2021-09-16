@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:crypto_app/core/utils/extensions.dart';
 
 class ConvertCoinScreen extends StatefulWidget {
   const ConvertCoinScreen({Key? key, required this.title, required this.coin})
@@ -32,13 +33,13 @@ class _ConvertCoinScreenState extends State<ConvertCoinScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title ?? '')),
+      appBar: AppBar(title: Text(widget.title?.capitalize ?? '')),
       body: Form(
         child: Column(
           children: [
-            SizedBox(height: 50),
-            Text(
-              'Amount(USD)',
+            const SizedBox(height: 50),
+            const Text(
+              'Amount (USD)',
               style: TextStyle(color: Colors.black),
             ),
             TextFormField(
@@ -61,10 +62,10 @@ class _ConvertCoinScreenState extends State<ConvertCoinScreen> {
               },
               decoration: kInputDecoration,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
-              'Amount(${widget.title})',
-              style: TextStyle(color: Colors.black),
+              'Amount (${widget.title?.capitalize})',
+              style: const TextStyle(color: Colors.black),
             ),
             TextFormField(
               controller: _coinController,
@@ -94,18 +95,12 @@ class _ConvertCoinScreenState extends State<ConvertCoinScreen> {
 }
 
 final kInputDecoration = InputDecoration(
-  contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),
+  contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 15),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.grey),
+    borderSide: const BorderSide(color: Colors.grey),
     borderRadius: BorderRadius.circular(5),
   ),
-  focusedBorder: OutlineInputBorder(
+  focusedBorder: const OutlineInputBorder(
     borderSide: BorderSide(color: Colors.black),
   ),
-  errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(4)),
-      borderSide: BorderSide(color: Colors.red)),
-  focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(4)),
-      borderSide: BorderSide(color: Colors.red)),
 );

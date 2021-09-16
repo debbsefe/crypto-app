@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:crypto_app/core/error/failures.dart';
 import 'package:crypto_app/features/home/data/models/coin_list_model.dart';
 import 'package:crypto_app/features/home/domain/usecases/fetch_coin_list.dart';
-import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -22,19 +20,18 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
     CoinListEvent event,
   ) async* {
     if (event is CoinListEvent) {
+      ///yield loading
       yield const CoinListState.loading();
+
+      /// call usecase
       final _failureOrSuccess =
           await usecase(Params(currency: event.currency, ids: event.ids));
-      yield* _eitherLoadedOrErrorState(_failureOrSuccess);
-    }
-  }
 
-  Stream<CoinListState> _eitherLoadedOrErrorState(
-    Either<Failure, List<CoinListModel>> failureOrSuccess,
-  ) async* {
-    yield failureOrSuccess.fold(
-      (failure) => _Error(failure.message ?? 'unhandled'),
-      (success) => _Loaded(success),
-    );
+      ///yield either failure or success depending on response
+      yield _failureOrSuccess.fold(
+        (failure) => _Error(failure.message ?? 'unhandled'),
+        (success) => _Loaded(success),
+      );
+    }
   }
 }

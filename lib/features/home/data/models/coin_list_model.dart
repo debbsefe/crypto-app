@@ -1,17 +1,6 @@
-// To parse this JSON data, do
-//
-//     final coinListModel = coinListModelFromJson(jsonString);
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'dart:convert';
-
 part 'coin_list_model.freezed.dart';
 part 'coin_list_model.g.dart';
-
-CoinListModel coinListModelFromJson(String str) =>
-    CoinListModel.fromJson(json.decode(str));
-
-String coinListModelToJson(CoinListModel data) => json.encode(data.toJson());
 
 @freezed
 class CoinListModel with _$CoinListModel {
