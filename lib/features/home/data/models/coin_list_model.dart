@@ -16,12 +16,8 @@ String coinListModelToJson(CoinListModel data) => json.encode(data.toJson());
 @freezed
 class CoinListModel with _$CoinListModel {
   const factory CoinListModel({
-    Coin? solana,
-    Coin? ripple,
-    Coin? bitcoin,
-    Coin? cardano,
-    Coin? ethereum,
-    Coin? binancecoin,
+    String? coin,
+    num? usd,
   }) = _CoinListModel;
 
   factory CoinListModel.fromJson(Map<String, dynamic> json) =>
@@ -31,7 +27,7 @@ class CoinListModel with _$CoinListModel {
 @freezed
 class Coin with _$Coin {
   const factory Coin({
-    double? usd,
+    num? usd,
   }) = _Coin;
 
   factory Coin.fromJson(Map<String, dynamic> json) => _$CoinFromJson(json);
