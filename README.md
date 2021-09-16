@@ -23,6 +23,10 @@ Run the app
 
 `flutter run`
 
+# Download
+
+You can download the apk here => https://github.com/debbsefe/crypto-app/releases/download/1.0/app-release.apk
+
 # App-Development-Info
 
 _Folder Structure_
