@@ -4,10 +4,6 @@ class NetworkException extends DioError {
   NetworkException() : super(requestOptions: RequestOptions(path: ''));
 }
 
-class CacheException extends DioError {
-  CacheException() : super(requestOptions: RequestOptions(path: ''));
-}
-
 class ServerException extends DioError {
   final String message;
 
@@ -17,8 +13,4 @@ class ServerException extends DioError {
 
 class BadRequestException extends DioError {
   BadRequestException() : super(requestOptions: RequestOptions(path: ''));
-}
-
-class UnauthorizedException extends DioError {
-  UnauthorizedException() : super(requestOptions: RequestOptions(path: ''));
 }

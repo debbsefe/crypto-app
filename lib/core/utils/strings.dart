@@ -1,3 +1,3 @@
 class Strings {
-  static const baseUrl = 'https://api.coingecko.com/api/v3/';
+  static const baseUrl = 'https://api.coingecko.com/api/v3';
 }
